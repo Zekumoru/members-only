@@ -8,12 +8,24 @@ import 'dotenv/config';
 import app from '../app';
 import debug from 'debug';
 import http from 'http';
+import mongoose from 'mongoose';
 
-debug('members-only:server');
+const serverDebug = debug('members-only:server');
 
 /**
  * Connect to mongodb
  */
+
+const dbString = process.env.MONGODB_CONNECTION_STRING;
+
+(async () => {
+  if (!dbString) throw new Error('Mongodb connection string is undefined');
+
+  await mongoose.connect(dbString);
+  serverDebug(`Successfully connected to mongodb`);
+})().catch((error: { message: string }) => {
+  serverDebug(`Cannot connect to db: ${error.message}`);
+});
 
 /**
  * Get port from environment and store in Express.
@@ -34,10 +46,9 @@ const server = http.createServer(app);
  */
 
 server.listen(port, () => {
-  console.log(`Server started running on http://${hostname}:${port}`);
+  serverDebug(`Server started running on http://${hostname}:${port}`);
 });
 server.on('error', onError);
-server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -83,14 +94,4 @@ function onError(error: { syscall: string; code: string }) {
     default:
       throw error;
   }
-}
-
-/**
- * Event listener for HTTP server "listening" event.
- */
-
-function onListening() {
-  const addr = server.address();
-  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr!.port;
-  debug('Listening on ' + bind);
 }
