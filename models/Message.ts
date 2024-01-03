@@ -1,11 +1,11 @@
-import { ObjectId, Schema, model } from 'mongoose';
+import { Schema, Types, model } from 'mongoose';
 import { IUser } from './User';
 
 export interface IMessage {
   title: string;
   timestamp: Date;
   content: string;
-  user: ObjectId | IUser;
+  user: Types.ObjectId | IUser;
 }
 
 const MessageSchema = new Schema<IMessage>({
