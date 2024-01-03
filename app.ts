@@ -9,6 +9,7 @@ import session from 'express-session';
 import passport from 'passport';
 import './setup/passport';
 import loginRouter from './routes/login';
+import logoutRouter from './routes/logout';
 
 const app = express();
 
@@ -42,6 +43,7 @@ app.use((req, res, next) => {
 
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
+app.use('/logout', logoutRouter);
 app.use('/sign-up', signUpRouter);
 
 // catch 404 and forward to error handler
