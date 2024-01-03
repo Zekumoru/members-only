@@ -32,6 +32,13 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
+// access current user in views
+// without having to pass it in render()
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/sign-up', signUpRouter);
 
