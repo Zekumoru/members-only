@@ -28,8 +28,8 @@ const validations = [
     .withMessage('Username must be 100 characters or below')
     .escape(),
   body('password')
-    .isLength({ min: 1 })
-    .withMessage('Password is required')
+    .isLength({ min: 8 })
+    .withMessage('Password must be 8 or more characters long')
     .isLength({ max: 30 })
     .withMessage('Password must be 30 characters or below')
     .escape(),

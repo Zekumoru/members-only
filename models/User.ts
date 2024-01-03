@@ -30,6 +30,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: {
     type: String,
+    minlength: 8,
     maxlength: 30,
     required: true,
   },
