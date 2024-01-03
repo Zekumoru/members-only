@@ -1,12 +1,12 @@
 import { Types } from "mongoose";
 import passport from "passport";
 import { Strategy as LocalStrategy } from 'passport-local';
-import User from '../models/User';
+import User, { IUser } from '../models/User';
 import bcrypt from 'bcryptjs';
 
 declare global {
   namespace Express {
-    interface User {
+    interface User extends IUser {
       _id: Types.ObjectId;
     }
   }
