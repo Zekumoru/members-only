@@ -29,6 +29,7 @@ const UserSchema = new Schema<IUser>({
   },
   password: {
     type: String,
+    maxlength: 30,
     required: true,
   },
   role: String,
