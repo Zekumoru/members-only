@@ -22,7 +22,6 @@ const validations = [
     .withMessage('Last name must be 100 characters or below')
     .escape(),
   body('username')
-    // TODO: Create validator to check if username already exists
     .trim()
     .toLowerCase()
     .isLength({ min: 1 })
