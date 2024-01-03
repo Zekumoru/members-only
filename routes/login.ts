@@ -3,6 +3,7 @@ import { body, validationResult } from 'express-validator';
 import User from '../models/User';
 import passport from 'passport';
 import bcrypt from 'bcryptjs';
+import redirectIfLoggedIn from '../middlewares/redirectIfLoggedIn';
 
 const loginRouter = express.Router();
 
@@ -30,7 +31,7 @@ const validations = [
     .escape(),
 ];
 
-loginRouter.get('/', (req, res) => {
+loginRouter.get('/', redirectIfLoggedIn, (req, res) => {
   res.render('login');
 });
 

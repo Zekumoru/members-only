@@ -3,6 +3,7 @@ import asyncHandler from 'express-async-handler';
 import { body, validationResult } from 'express-validator';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
+import redirectIfLoggedIn from '../middlewares/redirectIfLoggedIn';
 
 const signUpRouter = express.Router();
 
@@ -47,7 +48,7 @@ const validations = [
     .withMessage('Confirm password does not match'),
 ];
 
-signUpRouter.get('/', (req, res) => {
+signUpRouter.get('/', redirectIfLoggedIn, (req, res) => {
   res.render('sign-up');
 });
 
