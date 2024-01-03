@@ -5,6 +5,9 @@ import cookieParser from 'cookie-parser';
 import logger from 'morgan';
 import indexRouter from './routes';
 import signUpRouter from './routes/sign-up';
+import session from 'express-session';
+import passport from 'passport';
+import './setup/passport';
 
 const app = express();
 
@@ -17,6 +20,17 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+const sessionSecret = process.env.SESSION_SECRET ?? 'some secret';
+app.use(session({
+  secret: sessionSecret,
+  resave: false,
+  saveUninitialized: true,
+}));
+
+// setup passport
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.use('/', indexRouter);
 app.use('/sign-up', signUpRouter);

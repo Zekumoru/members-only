@@ -1,6 +1,8 @@
 import express from 'express';
 import asyncHandler from 'express-async-handler';
 import { body, validationResult } from 'express-validator';
+import User from '../models/User';
+import bcrypt from 'bcryptjs';
 
 const signUpRouter = express.Router();
 
@@ -22,10 +24,15 @@ const validations = [
   body('username')
     // TODO: Create validator to check if username already exists
     .trim()
+    .toLowerCase()
     .isLength({ min: 1 })
     .withMessage('Username is required')
     .isLength({ max: 100 })
     .withMessage('Username must be 100 characters or below')
+    .custom(async (username) => {
+      const user = await User.find({ username });
+      if (user) throw new Error('Username already taken');
+    })
     .escape(),
   body('password')
     .isLength({ min: 8 })
@@ -45,7 +52,7 @@ signUpRouter.get('/', (req, res) => {
   res.render('sign-up');
 });
 
-signUpRouter.post('/', ...validations, asyncHandler((req, res) => {
+signUpRouter.post('/', ...validations, asyncHandler(async (req, res, next) => {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -59,7 +66,22 @@ signUpRouter.post('/', ...validations, asyncHandler((req, res) => {
     });
   }
 
-  res.redirect('/');
+  bcrypt.hash(req.body.password, 10, async (err, hashedPassword) => {
+    // An error occurred
+    if (err) return next(err);
+
+    // All's well, save the new user with the hashed password
+    const user = new User({
+      firstname: req.body.firstname,
+      lastname: req.body.lastname,
+      username: req.body.username,
+      password: hashedPassword,
+      role: 'visitor',
+    });
+
+    await user.save();
+    res.redirect('/');
+  });
 }));
 
 export default signUpRouter;
