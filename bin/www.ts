@@ -12,11 +12,15 @@ import http from 'http';
 debug('members-only:server');
 
 /**
+ * Connect to mongodb
+ */
+
+/**
  * Get port from environment and store in Express.
  */
 
 const port = normalizePort(process.env.PORT || '3000');
-const hostname = process.env.HOSTNAME;
+const hostname = process.env.HOSTNAME ?? 'localhost';
 app.set('port', port);
 
 /**
