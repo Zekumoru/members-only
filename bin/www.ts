@@ -9,7 +9,7 @@ import app from '../app';
 import debug from 'debug';
 import http from 'http';
 
-debug('mini-message-board:server');
+debug('members-only:server');
 
 /**
  * Get port from environment and store in Express.
