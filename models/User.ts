@@ -6,6 +6,7 @@ export interface IUser {
   username: string;
   password: string;
   role: "owner" | "admin" | "member" | "visitor";
+  createdAt: Date;
 };
 
 const UserSchema = new Schema<IUser>({
@@ -34,6 +35,10 @@ const UserSchema = new Schema<IUser>({
     required: true,
   },
   role: String,
+  createdAt: {
+    type: Date,
+    default: Date.now,
+  }
 });
 
 export default model('User', UserSchema);
