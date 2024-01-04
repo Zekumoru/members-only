@@ -22,6 +22,7 @@ const MessageSchema = new Schema<IMessage>({
   },
   user: {
     type: Schema.Types.ObjectId,
+    ref: 'User',
     required: true,
   },
   timestamp: {
