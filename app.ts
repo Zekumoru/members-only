@@ -13,6 +13,7 @@ import logoutRouter from './routes/logout';
 import MongoStore from 'connect-mongo';
 import createMessageRouter from './routes/create-message';
 import joinClubRouter from './routes/join-club';
+import messageRouter from './routes/message';
 
 const app = express();
 
@@ -48,6 +49,8 @@ declare global {
   namespace Express {
     interface Locals {
       currentUser: Express.User | undefined;
+      canViewAuthorAndDate: boolean;
+      canDeleteMessages: boolean;
     }
   }
 }
@@ -60,6 +63,7 @@ app.use((req, res, next) => {
 // put permissions in locals
 app.use((req, res, next) => {
   res.locals.canViewAuthorAndDate = ['owner', 'admin', 'member'].includes(res.locals.currentUser?.role ?? '');
+  res.locals.canDeleteMessages = ['owner', 'admin'].includes(res.locals.currentUser?.role ?? '');
   next();
 });
 
@@ -69,6 +73,7 @@ app.use('/logout', logoutRouter);
 app.use('/sign-up', signUpRouter);
 app.use('/join-club', joinClubRouter);
 app.use('/create-message', createMessageRouter);
+app.use('/message', messageRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
