@@ -1,5 +1,6 @@
 import { Schema, Types, model } from 'mongoose';
 import { IUser } from './User';
+import { format } from 'date-fns';
 
 export interface IMessage {
   title: string;
@@ -29,6 +30,10 @@ const MessageSchema = new Schema<IMessage>({
     type: Date,
     default: Date.now,
   }
+});
+
+MessageSchema.virtual('formattedDate').get(function () {
+  return format(this!.timestamp, `MMM d, yyyy (eee) 'at' hh:mm:ss aa`);
 });
 
 export default model('Message', MessageSchema);
