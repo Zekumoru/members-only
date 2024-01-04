@@ -4,6 +4,7 @@ import { body, validationResult } from 'express-validator';
 import User from '../models/User';
 import bcrypt from 'bcryptjs';
 import redirectIfLoggedIn from '../middlewares/redirectIfLoggedIn';
+import passport from 'passport';
 
 const signUpRouter = express.Router();
 
@@ -80,8 +81,11 @@ signUpRouter.post('/', ...validations, asyncHandler(async (req, res, next) => {
     });
 
     await user.save();
-    res.redirect('/');
+    next();
   });
+}), passport.authenticate('local', {
+  successRedirect: '/',
+  failureRedirect: '/login',
 }));
 
 export default signUpRouter;
