@@ -30,7 +30,7 @@ const validations = [
     .isLength({ max: 100 })
     .withMessage('Username must be 100 characters or below')
     .custom(async (username) => {
-      const user = await User.find({ username });
+      const user = await User.findOne({ username });
       if (user) throw new Error('Username already taken');
     })
     .escape(),
