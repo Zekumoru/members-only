@@ -10,6 +10,7 @@ import passport from 'passport';
 import './setup/passport';
 import loginRouter from './routes/login';
 import logoutRouter from './routes/logout';
+import MongoStore from 'connect-mongo';
 
 const app = express();
 
@@ -24,10 +25,15 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const sessionSecret = process.env.SESSION_SECRET ?? 'some secret';
+const dbString = process.env.MONGODB_CONNECTION_STRING;
 app.use(session({
   secret: sessionSecret,
   resave: false,
   saveUninitialized: true,
+  store: MongoStore.create({
+    mongoUrl: dbString,
+    collectionName: 'sessions',
+  }),
 }));
 
 // setup passport
