@@ -28,7 +28,9 @@
                   <span class="message-date"><%= message.formattedDate %></span>
                 </div>
               <% } %>
-              <p class="message-content"><%= message.content %></p>
+              <% if (message.content) { %>
+                <p class="message-content"><%= message.content %></p>
+              <% } %>
               <% if (locals.canDeleteMessages) { %>
                 <form class="message-delete-btn-container" action="/message/<%= message._id %>/delete" method="post">
                   <button class="message-delete-btn">Delete message</button>
