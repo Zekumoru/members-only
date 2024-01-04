@@ -29,7 +29,9 @@ joinClubRouter.get('/', (req, res) => {
     return res.redirect('/');
   }
 
-  res.render('join-club');
+  res.render('join-club', {
+    documentTitle: 'Members-Only | Join club'
+  });
 });
 
 joinClubRouter.post('/', ...validations, asyncHandler(async (req, res) => {
@@ -45,6 +47,7 @@ joinClubRouter.post('/', ...validations, asyncHandler(async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.render('join-club', {
+      documentTitle: 'Members-Only | Join club',
       password: req.body.password,
       errors: errors.mapped(),
     });

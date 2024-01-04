@@ -50,7 +50,9 @@ const validations = [
 ];
 
 signUpRouter.get('/', redirectIfLoggedIn, (req, res) => {
-  res.render('sign-up');
+  res.render('sign-up', {
+    documentTitle: 'Members-Only | Sign Up'
+  });
 });
 
 signUpRouter.post('/', ...validations, asyncHandler(async (req, res, next) => {
@@ -73,6 +75,7 @@ signUpRouter.post('/', ...validations, asyncHandler(async (req, res, next) => {
 
     // All's well, save the new user with the hashed password
     const user = new User({
+      documentTitle: 'Members-Only | Sign Up',
       firstname: req.body.firstname,
       lastname: req.body.lastname,
       username: req.body.username,

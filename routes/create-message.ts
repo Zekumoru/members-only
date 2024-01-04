@@ -24,7 +24,9 @@ createMessageRouter.get('/', (req, res) => {
     return res.redirect('/');
   }
 
-  res.render('create-message');
+  res.render('create-message', {
+    documentTitle: 'Members-Only | Create new message'
+  });
 });
 
 createMessageRouter.post('/', ...validations, asyncHandler(async (req, res) => {
@@ -37,6 +39,7 @@ createMessageRouter.post('/', ...validations, asyncHandler(async (req, res) => {
 
   if (!errors.isEmpty()) {
     return res.render('create-message', {
+      documentTitle: 'Members-Only | Create new message',
       title: req.body.title,
       content: req.body.content,
       errors: errors.mapped(),

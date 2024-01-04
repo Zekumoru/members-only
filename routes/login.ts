@@ -32,7 +32,9 @@ const validations = [
 ];
 
 loginRouter.get('/', redirectIfLoggedIn, (req, res) => {
-  res.render('login');
+  res.render('login', {
+    documentTitle: 'Members-Only | Login'
+  });
 });
 
 loginRouter.post('/', ...validations, (req, res, next) => {
@@ -40,6 +42,7 @@ loginRouter.post('/', ...validations, (req, res, next) => {
 
   if (!errors.isEmpty()) {
     return res.render('login', {
+      documentTitle: 'Members-Only | Login',
       username: req.body.username,
       password: req.body.password,
       errors: errors.mapped(),
