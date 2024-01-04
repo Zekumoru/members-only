@@ -1,8 +1,74 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+:root {
+  --background-color: hsl(0, 0%, 90%);
+  --primary-color: hsl(0, 0%, 10%);
+  --text-color: black;
+  --text-color-primary: white;
 }
 
-a {
-  color: #00B7FF;
+html {
+  background-color: var(--background-color);
+}
+
+body {
+  font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+main {
+  padding: 16px;
+}
+
+/**
+ * Main navbar styles
+ */
+
+.main-nav {
+  background-color: var(--primary-color);
+}
+
+.main-nav ul {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-nav a {
+  display: block;
+  color: var(--text-color-primary);
+  text-decoration: none;
+  padding: 14px 28px;
+}
+
+.main-nav a:hover {
+  background-color: black;
+}
+
+@media only screen and (min-width: 640px) {
+  /**
+   * Main navbar styles
+   */
+
+  .main-nav {
+    padding-inline: 16px;
+  }
+
+  .main-nav ul {
+    flex-direction: row;
+  }
+
+  .main-nav a {
+    padding: 18px 32px;
+  }
+
+  main,
+  .main-nav ul {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  /**
+   * Utility classes
+   */
+
+  .sm.ml-auto {
+    margin-left: auto;
+  }
 }

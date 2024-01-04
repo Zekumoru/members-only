@@ -1,13 +1,13 @@
-<nav>
+<nav class="main-nav">
   <ul>
     <li><a href="/">Home</a></li>
     <% if (!locals.currentUser) { %>
-      <li><a href="/login">Log In</a></li>
+      <li class="sm ml-auto"><a href="/login">Log In</a></li>
       <li><a href="/sign-up">Sign Up</a></li>
     <% } else { %>
       <li><a href="/create-message">Create message</a></li>
       <li><a href="/join-club">Join club</a></li>
-      <li><a href="/logout">Log Out</a></li>
+      <li class="sm ml-auto"><a href="/logout">Log Out</a></li>
     <% } %>
   </ul>
 </nav>

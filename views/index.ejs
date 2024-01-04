@@ -6,26 +6,28 @@
   <body>
     <%- include("partials/nav.ejs") %>
 
-    <% if (!locals.messages) { %>
-      <p>There are currently no messages.</p>
-    <% } else { %>
-      <ul>
-        <% messages.forEach((message) => { %>
-          <li>
-            <h3><%= message.title %></h3>
-            <p><%= message.content %></p>
-            <% if (locals.canViewAuthorAndDate) { %>
-              <div><%= message.user.username %></div>
-              <div><%= message.formattedDate %></div>
-            <% } %>
-            <% if (locals.canDeleteMessages) { %>
-              <form action="/message/<%= message._id %>/delete" method="post">
-                <button>Delete message</button>
-              </form>
-            <% } %>
-          </li>
-        <% }); %>
-      </ul>
-    <% } %>
+    <main>
+      <% if (!locals.messages) { %>
+        <p>There are currently no messages.</p>
+      <% } else { %>
+        <ul>
+          <% messages.forEach((message) => { %>
+            <li>
+              <h3><%= message.title %></h3>
+              <p><%= message.content %></p>
+              <% if (locals.canViewAuthorAndDate) { %>
+                <div><%= message.user.username %></div>
+                <div><%= message.formattedDate %></div>
+              <% } %>
+              <% if (locals.canDeleteMessages) { %>
+                <form action="/message/<%= message._id %>/delete" method="post">
+                  <button>Delete message</button>
+                </form>
+              <% } %>
+            </li>
+          <% }); %>
+        </ul>
+      <% } %>
+    </main>
   </body>
 </html>
