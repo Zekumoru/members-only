@@ -17,6 +17,28 @@ main {
   padding: 16px;
 }
 
+h3 {
+  font-size: 1.4rem;
+  font-weight: bold;
+}
+
+a {
+  color: var(--text-color);
+}
+
+button {
+  padding: 12px 24px;
+  border: none;
+  background-color: var(--primary-color);
+  color: var(--text-color-primary);
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: black;
+}
+
 /**
  * Main navbar styles
  */
@@ -39,6 +61,44 @@ main {
 
 .main-nav a:hover {
   background-color: black;
+}
+
+/**
+ * Message list styles
+ */
+
+.message-item:not(:last-of-type) {
+  padding-block: 16px;
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+}
+
+.message-item:first-of-type {
+  padding-top: 0;
+}
+
+.message-item:last-of-type {
+  padding-top: 16px;
+}
+
+.message-item .message-content {
+  margin-block: 4px;
+  background-color: hsl(0, 0%, 74%);
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 1.2rem;
+}
+
+.message-item .message-author-and-date {
+  color: hsl(0, 0%, 20%);
+  font-size: 0.95rem;
+}
+
+.message-item .message-author {
+  font-style: italic;
+}
+
+.message-item .message-delete-btn-container {
+  margin-top: 8px;
 }
 
 @media only screen and (min-width: 640px) {
@@ -71,4 +131,12 @@ main {
   .sm.ml-auto {
     margin-left: auto;
   }
+}
+
+/**
+ * Utility classes
+ */
+
+.mb-16 {
+  margin-bottom: 16px;
 }

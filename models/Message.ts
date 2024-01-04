@@ -33,7 +33,7 @@ const MessageSchema = new Schema<IMessage>({
 });
 
 MessageSchema.virtual('formattedDate').get(function () {
-  return format(this!.timestamp, `MMM d, yyyy (eee) 'at' hh:mm:ss aa`);
+  return format(this!.timestamp, `MMM d, yyyy (hh:mm:ss aa)`);
 });
 
 export default model('Message', MessageSchema);
