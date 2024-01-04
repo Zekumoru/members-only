@@ -14,7 +14,10 @@
           <li>
             <h3><%= message.title %></h3>
             <p><%= message.content %></p>
-            <div><%= message.user.username %></div>
+            <% if (locals.canViewAuthorAndDate) { %>
+              <div><%= message.user.username %></div>
+              <div><%= message.formattedDate %></div>
+            <% } %>
           </li>
         <% }); %>
       </ul>

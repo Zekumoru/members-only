@@ -57,6 +57,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// put permissions in locals
+app.use((req, res, next) => {
+  res.locals.canViewAuthorAndDate = ['owner', 'admin', 'member'].includes(res.locals.currentUser?.role ?? '');
+  next();
+});
+
 app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
