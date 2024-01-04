@@ -5,5 +5,19 @@
 
   <body>
     <%- include("partials/nav.ejs") %>
+
+    <% if (!locals.messages) { %>
+      <p>There are currently no messages.</p>
+    <% } else { %>
+      <ul>
+        <% messages.forEach((message) => { %>
+          <li>
+            <h3><%= message.title %></h3>
+            <p><%= message.content %></p>
+            <div><%= message.user.username %></div>
+          </li>
+        <% }); %>
+      </ul>
+    <% } %>
   </body>
 </html>
