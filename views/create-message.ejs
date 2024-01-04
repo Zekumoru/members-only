@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+
+<html lang="en">
+  <%- include("partials/head.ejs") %>
+
+  <body>
+    <%- include("partials/nav.ejs") %>
+
+    <main>
+      <h1>Create a new message</h1>
+
+      <form method="post">
+        <div class="form-group">
+          <label for="title">Title *</label>
+          <input type="text" name="title" id="title" value="<%= locals.title %>" />
+          <% if (locals.errors && locals.errors.title) { %>
+            <p><%= errors.title.msg %></p>
+          <% } %>
+        </div>
+        <div class="form-group">
+          <label for="content">Content</label>
+          <textarea name="content" id="content" cols="30" rows="10"><%= locals.content %></textarea>
+          <% if (locals.errors && locals.errors.content) { %>
+            <p><%= errors.content.msg %></p>
+          <% } %>
+        </div>
+        <p>* means required</p>
+        <button>Create message</button>
+      </form>
+    </main>
+  </body>
+</html>

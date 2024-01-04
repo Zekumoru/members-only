@@ -11,6 +11,7 @@ import './setup/passport';
 import loginRouter from './routes/login';
 import logoutRouter from './routes/logout';
 import MongoStore from 'connect-mongo';
+import createMessageRouter from './routes/create-message';
 
 const app = express();
 
@@ -42,6 +43,14 @@ app.use(passport.session());
 
 // access current user in views
 // without having to pass it in render()
+declare global {
+  namespace Express {
+    interface Locals {
+      currentUser: Express.User | undefined;
+    }
+  }
+}
+
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   next();
@@ -51,6 +60,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/sign-up', signUpRouter);
+app.use('/create-message', createMessageRouter);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
