@@ -12,6 +12,7 @@ import loginRouter from './routes/login';
 import logoutRouter from './routes/logout';
 import MongoStore from 'connect-mongo';
 import createMessageRouter from './routes/create-message';
+import joinClubRouter from './routes/join-club';
 
 const app = express();
 
@@ -60,6 +61,7 @@ app.use('/', indexRouter);
 app.use('/login', loginRouter);
 app.use('/logout', logoutRouter);
 app.use('/sign-up', signUpRouter);
+app.use('/join-club', joinClubRouter);
 app.use('/create-message', createMessageRouter);
 
 // catch 404 and forward to error handler

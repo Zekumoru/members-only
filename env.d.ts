@@ -7,6 +7,8 @@ declare global {
       NODE_ENV?: 'development' | 'production';
       MONGODB_CONNECTION_STRING?: string;
       SESSION_SECRET?: string;
+      MEMBER_PASSWORD?: string;
+      ADMIN_PASSWORD?: string;
     }
   }
 }
