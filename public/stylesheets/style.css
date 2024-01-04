@@ -9,12 +9,19 @@ html {
   background-color: var(--background-color);
 }
 
-body {
+body,
+textarea {
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
 main {
   padding: 16px;
+}
+
+h1 {
+  font-size: 1.8rem;
+  font-weight: bold;
+  margin-bottom: 16px;
 }
 
 h3 {
@@ -37,6 +44,45 @@ button {
 
 button:hover {
   background-color: black;
+}
+
+input,
+textarea {
+  background-color: hsl(0, 0%, 86%);
+  border-radius: 4px;
+  border: 1px solid hsl(0, 0%, 70%);
+  padding: 12px;
+  font-size: 1.2rem;
+}
+
+textarea {
+  resize: none;
+}
+
+label {
+  font-weight: bold;
+}
+
+/**
+ * Form styles
+ */
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form .form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.form button {
+  font-size: 1.1rem;
+  padding: 16px;
+  margin-top: 8px;
 }
 
 /**
