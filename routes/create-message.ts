@@ -1,6 +1,7 @@
 import express from 'express';
 import { body, validationResult } from 'express-validator';
 import asyncHandler from 'express-async-handler';
+import Message from '../models/Message';
 
 const createMessageRouter = express.Router();
 
@@ -26,7 +27,12 @@ createMessageRouter.get('/', (req, res) => {
   res.render('create-message');
 });
 
-createMessageRouter.post('/', ...validations, asyncHandler((req, res) => {
+createMessageRouter.post('/', ...validations, asyncHandler(async (req, res) => {
+  if (res.locals && !res.locals.currentUser) {
+    // User is not logged in so redirect to home page
+    return res.redirect('/');
+  }
+
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -37,6 +43,13 @@ createMessageRouter.post('/', ...validations, asyncHandler((req, res) => {
     });
   }
 
+  const message = new Message({
+    title: req.body.title,
+    content: req.body.content,
+    user: res.locals.currentUser
+  });
+
+  await message.save();
   res.redirect('/');
 }));
 
