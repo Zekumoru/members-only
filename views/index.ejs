@@ -1,3 +1,17 @@
+<%
+// Decodes encoded HTML (https://stackoverflow.com/a/72959145/12294437)
+const unicodeDecode = (text) => {
+  const decoded = text.replace(/&#x([0-9a-f]+);/gi, (_, code) =>
+    String.fromCharCode(parseInt(code, 16))
+  ).replace(/&(lt|gt|quot|amp);/gi, (_, type) => {
+    if (type === 'gt') return '>';
+    if (type === 'lt') return '<';
+    if (type === 'quot') return '"';
+    if (type === 'amp') return '&';
+  });
+  return decoded;
+};
+%>
 <!DOCTYPE html>
 
 <html lang="en">
@@ -20,7 +34,7 @@
         <ul class="message-list">
           <% messages.forEach((message) => { %>
             <li class="message-item">
-              <h3 class="message-title"><%= message.title %></h3>
+              <h3 class="message-title"><%= unicodeDecode(message.title) %></h3>
               <% if (locals.canViewAuthorAndDate) { %>
                 <div class="message-author-and-date">
                   <span class="message-author"><%= message.user.username %></span>
@@ -29,7 +43,7 @@
                 </div>
               <% } %>
               <% if (message.content) { %>
-                <p class="message-content"><%= message.content %></p>
+                <pre class="message-content"><%= unicodeDecode(message.content) %></pre>
               <% } %>
               <% if (locals.canDeleteMessages) { %>
                 <form class="message-delete-btn-container" action="/message/<%= message._id %>/delete" method="post">
