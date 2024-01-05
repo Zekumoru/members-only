@@ -2,12 +2,12 @@
   <ul>
     <li><a href="/">Home</a></li>
     <% if (!locals.currentUser) { %>
-      <li class="sm ml-auto"><a href="/login">Log In</a></li>
-      <li><a href="/sign-up">Sign Up</a></li>
+      <li class="sm ml-auto"><a href="/login">Log in</a></li>
+      <li><a href="/sign-up">Sign up</a></li>
     <% } else { %>
       <li><a href="/create-message">Create message</a></li>
       <li><a href="/join-club">Join club</a></li>
-      <li class="sm ml-auto"><a href="/logout">Log Out</a></li>
+      <li class="sm ml-auto"><a href="/logout">Log out</a></li>
     <% } %>
   </ul>
 </nav>
