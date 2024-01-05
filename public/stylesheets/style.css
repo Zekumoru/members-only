@@ -14,6 +14,12 @@ textarea {
   font: 18px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+#root {
+  display: grid;
+  min-height: 100vh;
+  grid-template-rows: auto 1fr auto;
+}
+
 main {
   padding: 16px;
 }
@@ -26,6 +32,10 @@ h1 {
 
 h3 {
   font-size: 1.4rem;
+  font-weight: bold;
+}
+
+h4 {
   font-weight: bold;
 }
 
@@ -149,6 +159,24 @@ label {
   margin-top: 8px;
 }
 
+/**
+ * Footer styles
+ */
+
+footer .content {
+  background-color: var(--primary-color);
+  color: var(--text-color-primary);
+  padding: 16px;
+}
+
+footer a {
+  color: var(--text-color-primary);
+}
+
+footer h4 {
+  margin-bottom: 4px;
+}
+
 @media only screen and (min-width: 640px) {
   /**
    * Main navbar styles
@@ -166,10 +194,15 @@ label {
     padding: 18px 32px;
   }
 
-  main,
+  main .content,
+  footer .content,
   .main-nav ul {
     max-width: 1200px;
     margin: 0 auto;
+  }
+
+  footer .content {
+    border-radius: 8px 8px 0 0;
   }
 
   /**

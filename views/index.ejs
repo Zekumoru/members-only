@@ -18,42 +18,47 @@ const unicodeDecode = (text) => {
   <%- include("partials/head.ejs") %>
 
   <body>
-    <%- include("partials/nav.ejs") %>
-
-    <main>
-      <% if (!locals.messages.length) { %>
-        <p>There are currently no messages.</p>
-      <% } else { %>
-        <% if (locals.currentUser) { %>
-          <% if (!locals.canViewAuthorAndDate) { %>
-            <p class="mb-16"><a href="/join-club">Become</a> a member to view the authors and when the messages were posted!</p>
+    <div id="root">
+      <%- include("partials/nav.ejs") %>
+      <main>
+        <div class="content">
+          <% if (!locals.messages.length) { %>
+            <p>There are currently no messages.</p>
+          <% } else { %>
+            <% if (locals.currentUser) { %>
+              <% if (!locals.canViewAuthorAndDate) { %>
+                <p class="mb-16"><a href="/join-club">Become</a> a member to view the authors and when the messages were posted!</p>
+              <% } %>
+            <% } else { %>
+              <p class="mb-16"><a href="/sign-up">Sign up</a> and become a member to view the authors and when the messages were posted!</p>
+            <% } %>
+            <ul class="message-list">
+              <% messages.forEach((message) => { %>
+                <li class="message-item">
+                  <h3 class="message-title"><%= unicodeDecode(message.title) %></h3>
+                  <% if (locals.canViewAuthorAndDate) { %>
+                    <div class="message-author-and-date">
+                      <span class="message-author"><%= message.user.username %></span>
+                      on
+                      <span class="message-date"><%= message.formattedDate %></span>
+                    </div>
+                  <% } %>
+                  <% if (message.content) { %>
+                    <pre class="message-content"><%= unicodeDecode(message.content) %></pre>
+                  <% } %>
+                  <% if (locals.canDeleteMessages) { %>
+                    <form class="message-delete-btn-container" action="/message/<%= message._id %>/delete" method="post">
+                      <button class="message-delete-btn">Delete message</button>
+                    </form>
+                  <% } %>
+                </li>
+              <% }); %>
+            </ul>
           <% } %>
-        <% } else { %>
-          <p class="mb-16"><a href="/sign-up">Sign up</a> and become a member to view the authors and when the messages were posted!</p>
-        <% } %>
-        <ul class="message-list">
-          <% messages.forEach((message) => { %>
-            <li class="message-item">
-              <h3 class="message-title"><%= unicodeDecode(message.title) %></h3>
-              <% if (locals.canViewAuthorAndDate) { %>
-                <div class="message-author-and-date">
-                  <span class="message-author"><%= message.user.username %></span>
-                  on
-                  <span class="message-date"><%= message.formattedDate %></span>
-                </div>
-              <% } %>
-              <% if (message.content) { %>
-                <pre class="message-content"><%= unicodeDecode(message.content) %></pre>
-              <% } %>
-              <% if (locals.canDeleteMessages) { %>
-                <form class="message-delete-btn-container" action="/message/<%= message._id %>/delete" method="post">
-                  <button class="message-delete-btn">Delete message</button>
-                </form>
-              <% } %>
-            </li>
-          <% }); %>
-        </ul>
-      <% } %>
-    </main>
+        </div>
+      </main>
+      
+      <%- include('partials/footer.ejs') %>
+    </div>
   </body>
 </html>

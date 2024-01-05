@@ -4,28 +4,31 @@
   <%- include("partials/head.ejs") %>
 
   <body>
-    <%- include("partials/nav.ejs") %>
-
-    <main>
-      <h1>Login</h1>
-
-      <form class="form" method="post">
-        <div class="form-group">
-          <label for="username">Username</label>
-          <input type="text" name="username" id="username" value="<%= locals.username %>" />
-          <% if (locals.errors && locals.errors.username) { %>
-            <p><%= errors.username.msg %></p>
-          <% } %>
+    <div id="root">
+      <%- include("partials/nav.ejs") %>
+      <main>
+        <div class="content">
+          <h1>Login</h1>
+          <form class="form" method="post">
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" name="username" id="username" value="<%= locals.username %>" />
+              <% if (locals.errors && locals.errors.username) { %>
+                <p><%= errors.username.msg %></p>
+              <% } %>
+            </div>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" value="<%= locals.password %>" />
+              <% if (locals.errors && locals.errors.password) { %>
+                <p><%= errors.password.msg %></p>
+              <% } %>
+            </div>
+            <button>Login</button>
+          </form>
         </div>
-        <div class="form-group">
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" value="<%= locals.password %>" />
-          <% if (locals.errors && locals.errors.password) { %>
-            <p><%= errors.password.msg %></p>
-          <% } %>
-        </div>
-        <button>Login</button>
-      </form>
-    </main>
+      </main>
+      <%- include('partials/footer.ejs') %>
+    </div>
   </body>
 </html>
